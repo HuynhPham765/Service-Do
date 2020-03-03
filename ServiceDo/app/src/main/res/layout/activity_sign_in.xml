@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient_purple_blue"
+    tools:context=".Pages.SignInPage.Controller.SignInActivity">
+    
+    <ImageView
+        android:id="@+id/img_icon_app"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="50dp"
+        android:src="@drawable/app_icon_launcher"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="vertical">
+        <EditText
+            android:id = "@+id/edt_user_name"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_gravity="center"
+            android:hint = "@string/edt_name"
+            android:drawableLeft="@drawable/sign_in_ic_account_circle_black_24dp"
+            android:inputType="textEmailAddress"
+            android:focusable = "true"
+            android:textSize="20sp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop = "46dp" />
+        <EditText
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:textSize="20sp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:drawableLeft="@drawable/sign_in_ic_lock_black_24dp"
+            android:hint="@string/edt_password" />
+        <Button
+            android:id="@+id/btn_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_sign_in"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:background= "@drawable/button_selector_enabled"
+            android:textAllCaps="false"/>
+        <TextView
+            android:id="@+id/tv_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/tv_go_to_sign_up"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic"
+            android:textColor="#0033CC"
+            />
+    </LinearLayout>
+</LinearLayout>
