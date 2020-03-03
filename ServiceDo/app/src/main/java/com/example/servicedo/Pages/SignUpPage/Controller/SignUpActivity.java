@@ -9,12 +9,14 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.servicedo.Config.DialogConfig;
+import com.example.servicedo.Config.ReferencesConfig;
 import com.example.servicedo.Pages.HomePage.Controller.HomeActivity;
 import com.example.servicedo.Pages.SignInPage.Controller.SignInActivity;
 import com.example.servicedo.R;
@@ -44,6 +46,8 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btn_sign_up);
         tvSignIn = findViewById(R.id.tv_sign_in);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,8 +65,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void handleSignUp(){
-        String userName = edtUserName.getText().toString();
-        String password = edtPassword.getText().toString();
+        final String userName = edtUserName.getText().toString();
+        final String password = edtPassword.getText().toString();
         auth = FirebaseAuth.getInstance();
         final DialogConfig dialogConfig = new DialogConfig(this);
 
@@ -94,6 +98,9 @@ public class SignUpActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             dialogConfig.showAlertDialog(getString(R.string.dialog_something_when_wrong));
                         } else {
+                            ReferencesConfig referencesConfig = new ReferencesConfig(SignUpActivity.this);
+                            referencesConfig.putString(ReferencesConfig.USER_NAME, userName);
+                            referencesConfig.putString(ReferencesConfig.PASSWORD, password);
                             startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
                             finish();
                         }
