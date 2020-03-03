@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Service Do</string>
+
+    <!--    Start sign in and sign up page-->
+    <string name="edt_name">Email</string>
+    <string name="edt_password">Mật khẩu</string>
+    <string name="edt_re_password">Nhập lại mật khẩu</string>
+    <string name="btn_sign_in">Đăng Nhập</string>
+    <string name="btn_sign_up">Đăng Kí</string>
+    <string name="tv_go_to_sign_up">Chưa có tài khoản? Đăng Kí</string>
+    <string name="tv_go_to_sign_in">Đã có tài khoản? Đăng Nhập</string>
+    <string name="dialog_empty_user_name">Vui lòng nhập email</string>
+    <string name="dialog_empty_password">Vui lòng nhập mật khẩu</string>
+    <string name="dialog_password_least_6">Vui lòng nhập mật khẩu có ít nhất 6 kí tự</string>
+    <string name="dialog_password_not_match_re_password">Mật khẩu không đồng nhất. Hãy kiểm tra lại</string>
+    <string name="dialog_something_when_wrong">Đã có lỗi xảy ra. Vui lòng thử lại</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--    End sign in and sign up page-->
+
 </resources>
