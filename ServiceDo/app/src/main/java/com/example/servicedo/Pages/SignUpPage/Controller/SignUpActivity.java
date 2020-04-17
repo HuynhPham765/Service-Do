@@ -19,11 +19,14 @@ import com.example.servicedo.Config.DialogConfig;
 import com.example.servicedo.Config.ReferencesConfig;
 import com.example.servicedo.Pages.HomePage.Controller.HomeActivity;
 import com.example.servicedo.Pages.SignInPage.Controller.SignInActivity;
+import com.example.servicedo.Pages.SignInPage.Model.User;
 import com.example.servicedo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -33,12 +36,16 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btnSignUp;
     private TextView tvSignIn;
 
-    private FirebaseAuth auth;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
         edtUserName = findViewById(R.id.edt_user_name);
         edtPassword = findViewById(R.id.edt_password);
@@ -67,7 +74,6 @@ public class SignUpActivity extends AppCompatActivity {
     public void handleSignUp(){
         final String userName = edtUserName.getText().toString();
         final String password = edtPassword.getText().toString();
-        auth = FirebaseAuth.getInstance();
         final DialogConfig dialogConfig = new DialogConfig(this);
 
         if (TextUtils.isEmpty(userName)) {
@@ -91,7 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         //create user
-        auth.createUserWithEmailAndPassword(userName, password)
+        mAuth.createUserWithEmailAndPassword(userName, password)
                 .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -100,7 +106,9 @@ public class SignUpActivity extends AppCompatActivity {
                         } else {
                             ReferencesConfig referencesConfig = new ReferencesConfig(SignUpActivity.this);
                             referencesConfig.putString(ReferencesConfig.USER_NAME, userName);
-                            referencesConfig.putString(ReferencesConfig.PASSWORD, password);
+                            String userId = mAuth.getCurrentUser().getUid();
+                            User user = new User(userId, userName);
+                            mDatabase.child("user").child(userId).setValue(user);
                             startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
                             finish();
                         }

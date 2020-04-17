@@ -5,24 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.servicedo.Config.DialogConfig;
 import com.example.servicedo.Config.ReferencesConfig;
 import com.example.servicedo.Pages.HomePage.Controller.HomeActivity;
+import com.example.servicedo.Pages.SignInPage.Model.User;
 import com.example.servicedo.Pages.SignUpPage.Controller.SignUpActivity;
 import com.example.servicedo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -31,13 +32,27 @@ public class SignInActivity extends AppCompatActivity {
     private Button btnSignIn;
     private TextView tvSignUp;
 
-    private FirebaseAuth auth;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     private ReferencesConfig referencesConfig;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
         edtUserName = findViewById(R.id.edt_user_name);
         edtPassword = findViewById(R.id.edt_password);
@@ -46,18 +61,11 @@ public class SignInActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        final String userName = edtUserName.getText().toString();
-        final String password = edtPassword.getText().toString();
-
-        if(checkSignInStatus()){
-            String mUserName = referencesConfig.getString(ReferencesConfig.USER_NAME);
-            String mPassword = referencesConfig.getString(ReferencesConfig.PASSWORD);
-            handleSignIn(mUserName, mPassword);
-        }
-
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String userName = edtUserName.getText().toString();
+                final String password = edtPassword.getText().toString();
                 handleSignIn(userName, password);
             }
         });
@@ -70,16 +78,7 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    public boolean checkSignInStatus(){
-        referencesConfig = new ReferencesConfig(SignInActivity.this);
-        if(!referencesConfig.getString(ReferencesConfig.USER_NAME).equals("") && !referencesConfig.getString(ReferencesConfig.PASSWORD).equals("")){
-            return true;
-        }
-        return false;
-    }
-
     public void handleSignIn(final String userName, final String password){
-        auth = FirebaseAuth.getInstance();
         final DialogConfig dialogConfig = new DialogConfig(this);
         if (TextUtils.isEmpty(userName)) {
             dialogConfig.showAlertDialog(getString(R.string.dialog_empty_user_name));
@@ -96,15 +95,16 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
 
-        auth.signInWithEmailAndPassword(userName, password)
+        mAuth.signInWithEmailAndPassword(userName, password)
                 .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
                             dialogConfig.showAlertDialog(getString(R.string.dialog_something_when_wrong));
                         } else {
-                            referencesConfig.putString(ReferencesConfig.USER_NAME, userName);
-                            referencesConfig.putString(ReferencesConfig.PASSWORD, password);
+                            String userId = mAuth.getCurrentUser().getUid();
+                            User user = new User(userId, userName);
+                            mDatabase.child("user").child(userId).setValue(user);
                             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();

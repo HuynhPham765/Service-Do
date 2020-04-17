@@ -3,6 +3,8 @@
     package="com.example.servicedo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Pages.HomePage.Controller.HomeActivity"></activity>
+        <activity android:name=".Pages.CreateFeed.Controller.CreateFeedActivity"></activity>
+        <activity android:name=".Pages.HomePage.Controller.HomeActivity" />
         <activity android:name=".Pages.SignUpPage.Controller.SignUpActivity" />
         <activity android:name=".Pages.SignInPage.Controller.SignInActivity">
             <intent-filter>

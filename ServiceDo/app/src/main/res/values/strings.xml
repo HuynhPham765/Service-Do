@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Service Do</string>
 
-    <!--    Start sign in and sign up page-->
+<!--    Start sign in and sign up page-->
     <string name="edt_name">Email</string>
     <string name="edt_password">Mật khẩu</string>
     <string name="edt_re_password">Nhập lại mật khẩu</string>
@@ -14,9 +14,19 @@
     <string name="dialog_password_least_6">Vui lòng nhập mật khẩu có ít nhất 6 kí tự</string>
     <string name="dialog_password_not_match_re_password">Mật khẩu không đồng nhất. Hãy kiểm tra lại</string>
     <string name="dialog_something_when_wrong">Đã có lỗi xảy ra. Vui lòng thử lại</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!--    End sign in and sign up page-->
+<!--    End sign in and sign up page-->
+
+<!--    Start create feed page-->
+    <string name="tv_choose_photo">Chọn ảnh minh họa công việc hoặc phần thưởng</string>
+    <string name="edt_title">Tiêu đề</string>
+    <string name="edt_reward">Phần thưởng</string>
+    <string name="edt_description">Mô tả</string>
+    <string name="rdb_type_work">Việc tìm người</string>
+    <string name="rdb_type_people">Người tìm việc</string>
+    <string name="layout_title_error">Vui lòng nhập tiêu đề</string>
+    <string name="layout_reward_error">Vui lòng nhập phần thưởng</string>
+    <string name="layout_description_error">Vui lòng nhập mô tả</string>
+<!--    End create feed page-->
 
 </resources>

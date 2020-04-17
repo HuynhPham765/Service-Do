@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    tools:context=".Pages.CreateFeed.Controller.CreateFeedActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/background_gradient_purple_blue">
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/rectangle_background"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/layout_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="8"
+                        android:layout_margin="3dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageViewAdd"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="3dp"
+                            android:src="@drawable/ic_camera_foreground" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:padding="3dp"
+                        android:gravity="center"
+                        android:text="@string/tv_choose_photo" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#EEEEEE"
+                    android:layout_margin="10dp"
+                    android:id="@+id/text_input_title">
+
+                    <EditText
+                        android:id="@+id/edt_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/edt_title"
+                        android:padding="3dp"
+                        android:background="@drawable/rounded_edittext"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#EEEEEE"
+                    android:layout_margin="10dp"
+                    android:id="@+id/text_input_reward"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/edt_reward"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/edt_reward"
+                        android:padding="3dp"
+                        android:background="@drawable/rounded_edittext" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdb_work_people"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="3dp"
+                        android:checked="true"
+                        android:layout_height="match_parent"
+                        android:text="@string/rdb_type_people"/>
+
+                    <RadioButton
+                        android:id="@+id/rdb_people_work"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="3dp"
+                        android:checked="false"
+                        android:layout_height="match_parent"
+                        android:text="@string/rdb_type_work"/>
+
+                </RadioGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#EEEEEE"
+                    android:layout_margin="10dp"
+                    android:id="@+id/text_input_description"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/edt_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        android:hint="@string/edt_description"
+                        android:padding="3dp"
+                        android:maxLength="1000"
+                        android:background="@drawable/rounded_edittext" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>
