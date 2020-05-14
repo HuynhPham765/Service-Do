@@ -25,10 +25,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
+import studio.carbonylgroup.textfieldboxes.SimpleTextChangedWatcher;
+import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
+
+
 public class SignInActivity extends AppCompatActivity {
 
-    private EditText edtUserName;
-    private EditText edtPassword;
+    private ExtendedEditText edtUserName;
+    private ExtendedEditText edtPassword;
+    private TextFieldBoxes edtLayoutUserName;
+    private TextFieldBoxes edtLayoutPassword;
     private Button btnSignIn;
     private TextView tvSignUp;
 
@@ -40,9 +48,11 @@ public class SignInActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            if(mAuth.getCurrentUser().isEmailVerified()) {
+                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
     }
 
@@ -54,10 +64,13 @@ public class SignInActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        edtUserName = findViewById(R.id.edt_user_name);
+        edtUserName = findViewById(R.id.edt_email);
         edtPassword = findViewById(R.id.edt_password);
         btnSignIn = findViewById(R.id.btn_sign_in);
         tvSignUp = findViewById(R.id.tv_sign_up);
+
+        edtLayoutUserName = findViewById(R.id.text_field_boxes_email);
+        edtLayoutPassword = findViewById(R.id.text_field_boxes_password);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -76,38 +89,64 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        edtLayoutUserName.setSimpleTextChangeWatcher(new SimpleTextChangedWatcher() {
+            @Override
+            public void onTextChanged(String theNewText, boolean isError) {
+                if(!TextUtils.isEmpty(theNewText)){
+                    edtLayoutUserName.setError("", false);
+                }
+            }
+        });
+
+        edtLayoutPassword.setSimpleTextChangeWatcher(new SimpleTextChangedWatcher() {
+            @Override
+            public void onTextChanged(String theNewText, boolean isError) {
+                if(!TextUtils.isEmpty(theNewText)){
+                    edtLayoutPassword.setError("", false);
+                }
+            }
+        });
     }
 
     public void handleSignIn(final String userName, final String password){
-        final DialogConfig dialogConfig = new DialogConfig(this);
+        final DialogConfig dialogConfig = new DialogConfig(this, SweetAlertDialog.ERROR_TYPE);
+        boolean isError = false;
         if (TextUtils.isEmpty(userName)) {
-            dialogConfig.showAlertDialog(getString(R.string.dialog_empty_user_name));
-            return;
+            edtLayoutUserName.setError(getString(R.string.dialog_empty_email), true);
+            isError = true;
         }
-
         if (TextUtils.isEmpty(password)) {
-            dialogConfig.showAlertDialog(getString(R.string.dialog_empty_password));
-            return;
+            edtLayoutPassword.setError(getString(R.string.dialog_empty_password), true);
+            isError = true;
         }
-
         if (password.length() < 6) {
-            dialogConfig.showAlertDialog(getString(R.string.dialog_password_least_6));
-            return;
+            edtLayoutPassword.setError(getString(R.string.dialog_password_least_6), true);
+            isError = true;
         }
 
-        mAuth.signInWithEmailAndPassword(userName, password)
+        if(isError) return;
+
+        String simpleEmail = userName+"@gmail.com";
+
+        mAuth.signInWithEmailAndPassword(simpleEmail, password)
                 .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            dialogConfig.showAlertDialog(getString(R.string.dialog_something_when_wrong));
+                            dialogConfig.showDialog(getString(R.string.dialog_something_when_wrong));
                         } else {
-                            String userId = mAuth.getCurrentUser().getUid();
-                            User user = new User(userId, userName);
-                            mDatabase.child("user").child(userId).setValue(user);
-                            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-                            startActivity(intent);
-                            finish();
+                            if(!mAuth.getCurrentUser().isEmailVerified()){
+                                dialogConfig.showDialog(getString(R.string.dialog_sign_in_with_no_verify));
+                                mAuth.getCurrentUser().sendEmailVerification();
+                            } else {
+//                                String userId = mAuth.getCurrentUser().getUid();
+//                                User user = new User(userId, userName);
+//                                mDatabase.child("user").child(userId).setValue(user);
+                                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
                     }
                 });

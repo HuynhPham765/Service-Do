@@ -16,7 +16,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/background_gradient_purple_blue">
+            app:contentInsetStart="150dp"
+            android:background="@color/startblue">
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -64,40 +65,66 @@
                         android:text="@string/tv_choose_photo" />
                 </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#EEEEEE"
+                    app:labelText="@string/edt_title"
                     android:layout_margin="10dp"
-                    android:id="@+id/text_input_title">
+                    app:hasClearButton="true"
+                    app:maxCharacters="50"
+                    >
 
-                    <EditText
-                        android:id="@+id/edt_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="@string/edt_title"
-                        android:padding="3dp"
-                        android:background="@drawable/rounded_edittext"/>
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_title"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:inputType="text"
+                        android:textSize="20sp"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_reward"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#EEEEEE"
+                    app:labelText="@string/edt_reward"
                     android:layout_margin="10dp"
-                    android:id="@+id/text_input_reward"
-                    app:errorEnabled="true">
+                    app:hasClearButton="true"
+                    app:maxCharacters="50"
+                    >
 
-                    <EditText
-                        android:id="@+id/edt_reward"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="@string/edt_reward"
-                        android:padding="3dp"
-                        android:background="@drawable/rounded_edittext" />
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_reward"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:inputType="text"
+                        android:textSize="20sp"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:labelText="@string/edt_address"
+                    android:layout_margin="10dp"
+                    app:hasClearButton="true"
+                    app:maxCharacters="50"
+                    >
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_address"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:inputType="text"
+                        android:textSize="20sp"/>
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
 
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -125,25 +152,25 @@
 
                 </RadioGroup>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#EEEEEE"
+                    app:labelText="@string/edt_description"
                     android:layout_margin="10dp"
-                    android:id="@+id/text_input_description"
-                    app:errorEnabled="true">
+                    app:hasClearButton="true"
+                    app:maxCharacters="1000"
+                    >
 
-                    <EditText
-                        android:id="@+id/edt_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="50dp"
-                        android:hint="@string/edt_description"
-                        android:padding="3dp"
-                        android:maxLength="1000"
-                        android:background="@drawable/rounded_edittext" />
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_description"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:inputType="text|textMultiLine"
+                        android:textSize="20sp"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
             </LinearLayout>
 

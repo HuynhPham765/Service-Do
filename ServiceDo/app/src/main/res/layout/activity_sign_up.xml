@@ -29,44 +29,156 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop = "46dp"
                 android:orientation="vertical">
-                <EditText
-                    android:id = "@+id/edt_user_name"
-                    android:layout_width = "match_parent"
-                    android:layout_height = "wrap_content"
-                    android:layout_gravity="center"
-                    android:hint = "@string/edt_name"
-                    android:drawableLeft="@drawable/sign_in_ic_account_circle_black_24dp"
-                    android:inputType="textEmailAddress"
-                    android:focusable = "true"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="18dp"
-                    android:layout_marginTop = "46dp" />
-                <EditText
-                    android:id="@+id/edt_password"
+
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:inputType="textPassword"
-                    android:ems="10"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="18dp"
-                    android:drawableLeft="@drawable/sign_in_ic_lock_black_24dp"
-                    android:hint="@string/edt_password" />
-                <EditText
-                    android:id="@+id/edt_re_password"
+                    app:labelText="@string/edt_name"
+                    app:hasClearButton="true"
+                    app:maxCharacters="30"
+                    >
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_user_name"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/sign_in_ic_account_circle_black_24dp"
+                        android:inputType="text"
+                        android:textSize="20sp"/>
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:inputType="textPassword"
-                    android:ems="10"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="18dp"
-                    android:drawableLeft="@drawable/sign_in_ic_lock_black_24dp"
-                    android:hint="@string/edt_re_password" />
+                    app:labelText="@string/edt_email"
+                    >
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_email"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/sign_in_ic_account_circle_black_24dp"
+                        android:inputType="textEmailAddress"
+                        app:suffix="\@gmail.com"
+                        android:textSize="20sp"/>
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:labelText="@string/edt_phone"
+                    app:hasClearButton="true"
+                    >
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_phone"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/sign_in_ic_account_circle_black_24dp"
+                        android:inputType="phone"
+                        android:textSize="20sp"/>
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:labelText="@string/edt_address"
+                    app:hasClearButton="true"
+                    >
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_address"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/sign_in_ic_account_circle_black_24dp"
+                        android:inputType="text"
+                        android:textSize="20sp"/>
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdb_male"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="3dp"
+                        android:checked="true"
+                        android:layout_height="match_parent"
+                        android:text="@string/rdb_sex_male"/>
+
+                    <RadioButton
+                        android:id="@+id/rdb_female"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="3dp"
+                        android:checked="false"
+                        android:layout_height="match_parent"
+                        android:text="@string/rdb_sex_female"/>
+
+                </RadioGroup>
+
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:labelText="@string/edt_password"
+                    app:hasClearButton="true"
+                    app:minCharacters="6"
+                    >
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_password"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/sign_in_ic_lock_black_24dp"
+                        android:inputType="textPassword"
+                        android:textSize="20sp"/>
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/text_field_boxes_re_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:labelText="@string/edt_re_password"
+                    app:hasClearButton="true"
+                    app:minCharacters="6"
+                    >
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id = "@+id/edt_re_password"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/sign_in_ic_lock_black_24dp"
+                        android:inputType="textPassword"
+                        android:textSize="20sp"/>
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
                 <Button
                     android:id="@+id/btn_sign_up"
                     android:layout_width="match_parent"

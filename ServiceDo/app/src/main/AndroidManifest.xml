@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.servicedo">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,8 +13,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Pages.CreateFeed.Controller.CreateFeedActivity"></activity>
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+        <activity android:name=".Pages.ProfileActivity.Controller.ProfileActivity"></activity>
+        <activity android:name=".Pages.ListFeedPage.Controller.ListFeedActivity" />
+        <activity android:name=".Pages.DetailFeedPage.Controller.DetailFeedActivity" />
+        <activity android:name=".Pages.CreateFeed.Controller.CreateFeedActivity" />
         <activity android:name=".Pages.HomePage.Controller.HomeActivity" />
         <activity android:name=".Pages.SignUpPage.Controller.SignUpActivity" />
         <activity android:name=".Pages.SignInPage.Controller.SignInActivity">

@@ -1,10 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pages.DetailFeedPage.DetailFeedActivity">
+    android:orientation="vertical"
+    tools:context=".Pages.DetailFeedPage.Controller.DetailFeedActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:contentInsetStart="150dp"
+        android:background="@color/startblue">
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:isScrollContainer="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:text="@string/tv_reward"/>
+
+                <TextView
+                    android:id="@+id/tv_reward"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:textColor="@color/colorRed"
+                    android:text="@string/tv_reward"/>
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="20sp"
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000" />
+
+                <LinearLayout
+                    android:id="@+id/layout_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_user"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_weight="3"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_user_foreground" />
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_weight="7"
+                        android:textSize="16sp"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="@string/tv_reward"
+                        android:paddingTop="20dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingBottom="20dp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:ellipsize="end"
+                    android:maxLines="10"
+                    android:maxLength="3000"
+                    android:text="@string/tv_reward"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_receive_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:background="@drawable/button_selector_enabled"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:textColor="@color/colorWhite"
+            android:text="@string/btn_receive_work"/>
+
+        <Button
+            android:id="@+id/btn_cancel_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:background="@drawable/button_selector_enabled"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:textColor="@color/colorWhite"
+            android:text="@string/btn_cancel_work"/>
+
+        <Button
+            android:id="@+id/btn_close_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:background="@drawable/button_selector_enabled"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:textColor="@color/colorWhite"
+            android:text="@string/btn_close_work"/>
+
+        <Button
+            android:id="@+id/btn_reopen_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:background="@drawable/button_selector_enabled"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:textColor="@color/colorWhite"
+            android:text="@string/btn_reopen_work"/>
+
+        <Button
+            android:id="@+id/btn_done_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:background="@drawable/button_selector_enabled"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:textColor="@color/colorWhite"
+            android:text="@string/btn_done_work"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

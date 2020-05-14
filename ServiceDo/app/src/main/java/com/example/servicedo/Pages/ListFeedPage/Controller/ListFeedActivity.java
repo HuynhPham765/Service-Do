@@ -1,4 +1,4 @@
-package com.example.servicedo.Pages.ListFeedPage;
+package com.example.servicedo.Pages.ListFeedPage.Controller;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -10,9 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.servicedo.Pages.CreateFeed.Model.Feed;
+import com.example.servicedo.Pages.DetailFeedPage.Controller.DetailFeedActivity;
 import com.example.servicedo.Pages.HomePage.Model.ListViewFeedAdapter;
 import com.example.servicedo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -51,6 +55,18 @@ public class ListFeedActivity extends AppCompatActivity {
 
         final ListViewFeedAdapter adapter = new ListViewFeedAdapter(this, R.layout.lv_feed_adapter, feeds);
         lvFeed.setAdapter(adapter);
+        lvFeed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(feeds != null && feeds.size() >= position){
+                    Intent intent = new Intent(ListFeedActivity.this, DetailFeedActivity.class);
+                    Gson gson = new Gson();
+                    String jsonFeed = (feeds != null && feeds.size() >= position) ? gson.toJson(feeds.get(position)) : "";
+                    intent.putExtra(Feed.FEED_STRING, jsonFeed);
+                    startActivity(intent);
+                }
+            }
+        });
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -91,7 +107,9 @@ public class ListFeedActivity extends AppCompatActivity {
                         feeds.clear();
                         for (DataSnapshot feedSnapshot : dataSnapshot.getChildren()) {
                             Feed feed = feedSnapshot.getValue(Feed.class);
-                            feeds.add(feed);
+                            if(Feed.EnumStatus.valueOf(feed.getStatus()).equals(Feed.EnumStatus.Progress)) {
+                                feeds.add(feed);
+                            }
                         }
                         adapter.notifyDataSetChanged();
                     }

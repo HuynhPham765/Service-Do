@@ -46,10 +46,10 @@ public class TabAdapter extends FragmentPagerAdapter {
         String title = "";
         switch (position){
             case 0:
-                title = "Home";
+                title = "Tin Đăng";
                 break;
             case 1:
-                title = "Profile";
+                title = "Cá Nhân";
                 break;
 //            case 2:
 //                title = "Three";

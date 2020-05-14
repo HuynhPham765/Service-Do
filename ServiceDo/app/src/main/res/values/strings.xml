@@ -1,23 +1,35 @@
 <resources>
     <string name="app_name">Service Do</string>
 
-<!--    Start sign in and sign up page-->
-    <string name="edt_name">Email</string>
+    <!--    Start sign in and sign up page-->
+    <string name="edt_name">Họ và tên</string>
+    <string name="edt_email">Email</string>
+    <string name="edt_phone">Số điện thoại</string>
+    <string name="edt_address">Địa chỉ</string>
+    <string name="rdb_sex">Giới tính</string>
+    <string name="rdb_sex_male">Nam</string>
+    <string name="rdb_sex_female">Nữ</string>
     <string name="edt_password">Mật khẩu</string>
     <string name="edt_re_password">Nhập lại mật khẩu</string>
     <string name="btn_sign_in">Đăng Nhập</string>
     <string name="btn_sign_up">Đăng Kí</string>
     <string name="tv_go_to_sign_up">Chưa có tài khoản? Đăng Kí</string>
     <string name="tv_go_to_sign_in">Đã có tài khoản? Đăng Nhập</string>
-    <string name="dialog_empty_user_name">Vui lòng nhập email</string>
+    <string name="dialog_empty_user_name">Vui lòng nhập tên</string>
+    <string name="dialog_max_length_user_name">Vượt quá giới hạn kí tự</string>
+    <string name="dialog_empty_email">Vui lòng nhập email</string>
+    <string name="dialog_empty_phone">Vui lòng nhập số điện thoại</string>
+    <string name="dialog_empty_address">Vui lòng nhập địa chỉ</string>
     <string name="dialog_empty_password">Vui lòng nhập mật khẩu</string>
     <string name="dialog_password_least_6">Vui lòng nhập mật khẩu có ít nhất 6 kí tự</string>
     <string name="dialog_password_not_match_re_password">Mật khẩu không đồng nhất. Hãy kiểm tra lại</string>
     <string name="dialog_something_when_wrong">Đã có lỗi xảy ra. Vui lòng thử lại</string>
+    <string name="dialog_sign_in_with_no_verify">Email chưa được xác nhận. Hãy xác nhận email trước khi đăng nhập</string>
+    <string name="dialog_create_user_success">Đăng kí thành công. Vui lòng xác nhận email và đăng nhập</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-<!--    End sign in and sign up page-->
+    <!--    End sign in and sign up page-->
 
-<!--    Start create feed page-->
+    <!--    Start create feed page-->
     <string name="tv_choose_photo">Chọn ảnh minh họa công việc hoặc phần thưởng</string>
     <string name="edt_title">Tiêu đề</string>
     <string name="edt_reward">Phần thưởng</string>
@@ -27,6 +39,52 @@
     <string name="layout_title_error">Vui lòng nhập tiêu đề</string>
     <string name="layout_reward_error">Vui lòng nhập phần thưởng</string>
     <string name="layout_description_error">Vui lòng nhập mô tả</string>
-<!--    End create feed page-->
+    <string name="dialog_progress_create_feed">Đang đăng tin</string>
+    <string name="empty_image_error">Hãy đăng ít nhất 1 ảnh để minh họa cho công việc hoặc phần thưởng</string>
+    <string name="toolbar_title_create_feed">Đăng Tin</string>
+    <!--    End create feed page-->
 
+    <!--    Start new feed page-->
+    <string name="tv_reward">Phần thưởng: </string>
+    <!--    End new feed page-->
+
+    <!--    Start detail feed page-->
+    <string name="btn_receive_work">Giao Dịch</string>
+    <string name="btn_cancel_work">Hủy Giao Dịch</string>
+    <string name="btn_close_work">Đóng Giao Dịch</string>
+    <string name="btn_reopen_work">Mở Lại Giao Dịch</string>
+    <string name="btn_done_work">Hoàn Thành Giao Dịch</string>
+    <string name="dialog_receive_work">Đang thực hiện giao dịch</string>
+    <string name="dialog_cancel_work">Đang hủy giao dịch</string>
+    <string name="dialog_reopen_work">Đang mở lại giao dịch</string>
+    <string name="dialog_close_work">Đang đóng giao dịch</string>
+    <string name="dialog_done_work">Đang hoàn thành giao dịch</string>
+    <string name="dialog_success">Thành Công</string>
+    <string name="dialog_fail">Thất Bại</string>
+    <string name="tv_status">Trạng thái:</string>
+    <string name="tv_status_new">đang mở</string>
+    <string name="tv_status_progress">đang giao dịch</string>
+    <string name="tv_status_done">đã giao dịch</string>
+    <string name="tv_status_close">đã đóng giao dịch</string>
+    <string name="toolbar_title_detail_feed">Chi Tiết Tin</string>
+    <!--    End detail feed page-->
+
+    <!--    Start profile page-->
+    <string name="tv_info">Thông tin chung</string>
+    <string name="tv_user_name">Tên</string>
+    <string name="tv_email">Email:</string>
+    <string name="tv_phone">Số điện thoại:</string>
+    <string name="tv_sex">Giới tính:</string>
+    <string name="tv_feed">Tin đã đăng</string>
+    <string name="tv_receive">Tin đã nhận</string>
+    <string name="btn_sign_out">Đăng Xuất</string>
+    <string name="tv_edit_profile">Sửa thông tin</string>
+    <string name="tv_change_avatar">Cập nhật ảnh đại diện</string>
+    <string name="dialog_progress_upload_avatar">Đang cập nhật ảnh đại diện</string>
+    <string name="dialog_upload_avatar_success">Cập nhật ảnh đại diện thành công</string>
+    <string name="dialog_upload_avatar_fail">Cập nhật ảnh đại diện thất bại</string>
+    <!--    End profile page-->
+
+    <string name="toolbar_title_my_feed">Tin Đã Đăng</string>
+    <string name="toolbar_title_receive_feed">Tin Đã Nhận</string>
 </resources>

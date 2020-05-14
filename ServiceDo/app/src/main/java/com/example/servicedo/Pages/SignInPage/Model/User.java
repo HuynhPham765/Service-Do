@@ -8,33 +8,46 @@ public class User {
     private String userName;
     private String email;
     private String phone;
-    private EnumSex sex;
+    private String address;
+    private String sex;
     private String avatar;
+
+    public User() {
+    }
 
     public User(String userId, String email) {
         this.userId = userId;
         this.userName = email.split("@")[0];
         this.email = email;
         this.phone = "";
-        this.sex = EnumSex.Other;
+        this.sex = EnumSex.Other.toString();
         this.avatar = "";
     }
 
-    public User(String userId, String userName, String email, String phone, EnumSex sex, String avatar) {
+    public User(String userId, String userName, String email, String phone, String address, String sex, String avatar) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.phone = phone;
+        this.address = address;
         this.sex = sex;
         this.avatar = avatar;
     }
 
-    public User(String userName, String email, String phone, EnumSex sex, String avatar) {
+    public User(String userName, String email, String phone, String sex, String avatar) {
         this.userName = userName;
         this.email = email;
         this.phone = phone;
         this.sex = sex;
         this.avatar = avatar;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getUserId() {
@@ -69,11 +82,11 @@ public class User {
         this.phone = phone;
     }
 
-    public EnumSex getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(EnumSex sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

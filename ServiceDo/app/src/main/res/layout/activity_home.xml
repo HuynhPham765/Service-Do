@@ -13,8 +13,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
+            android:layout_height="50dp"
+            android:background="@color/startblue" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -27,7 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="10dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_margin="20dp"
+        app:backgroundTint="@color/startblue"
+        android:src="@drawable/ic_add_foreground" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,12 +8,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 
+import com.example.servicedo.Config.DialogConfig;
 import com.example.servicedo.Pages.CreateFeed.Model.Feed;
 import com.example.servicedo.Pages.HomePage.Controller.HomeActivity;
 import com.example.servicedo.R;
@@ -44,17 +47,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
+import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
+
 public class CreateFeedActivity extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST_CODE = 100;
     LinearLayout layoutImageSelected;
     ImageView imgAdd;
-    EditText edtTitle;
-    EditText edtDescription;
-    EditText edtReward;
-    TextInputLayout layoutTitle;
-    TextInputLayout layoutReward;
-    TextInputLayout layoutDescription;
+    ExtendedEditText edtTitle;
+    ExtendedEditText edtDescription;
+    ExtendedEditText edtReward;
+    ExtendedEditText edtAddress;
+    TextFieldBoxes layoutTitle;
+    TextFieldBoxes layoutReward;
+    TextFieldBoxes layoutDescription;
+    TextFieldBoxes layoutAddress;
     RadioButton rdbPeople;
     RadioButton rdbWork;
     Toolbar toolbar;
@@ -79,19 +88,21 @@ public class CreateFeedActivity extends AppCompatActivity {
         edtTitle = findViewById(R.id.edt_title);
         edtDescription = findViewById(R.id.edt_description);
         edtReward = findViewById(R.id.edt_reward);
+        edtAddress = findViewById(R.id.edt_address);
         rdbPeople = findViewById(R.id.rdb_people_work);
         rdbWork = findViewById(R.id.rdb_work_people);
         toolbar = findViewById(R.id.toolbar);
-        layoutTitle = findViewById(R.id.text_input_title);
-        layoutReward = findViewById(R.id.text_input_reward);
-        layoutDescription = findViewById(R.id.text_input_description);
+        layoutTitle = findViewById(R.id.text_field_boxes_title);
+        layoutReward = findViewById(R.id.text_field_boxes_reward);
+        layoutDescription = findViewById(R.id.text_field_boxes_description);
+        layoutAddress = findViewById(R.id.text_field_boxes_address);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         Drawable drawable = getResources().getDrawable(R.drawable.ic_back_foreground);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(drawable);
-        actionBar.setTitle("");
+        actionBar.setTitle(getString(R.string.toolbar_title_create_feed));
 
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,13 +126,7 @@ public class CreateFeedActivity extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.done:
-                if (checkConditionCreateFeed()) {
-                    handleCreateFeed();
-                } else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        handleShowError();
-                    }
-                }
+                handleCreateFeed();
                 break;
             default:
                 break;
@@ -130,11 +135,57 @@ public class CreateFeedActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public boolean checkErrorForm(){
+        final String title = edtTitle.getText().toString();
+        final String description = edtDescription.getText().toString();
+        final String reward = edtReward.getText().toString();
+        final String address = edtAddress.getText().toString();
+
+        boolean isError = false;
+        if(TextUtils.isEmpty(title)){
+            layoutTitle.setError(getString(R.string.layout_title_error), true);
+            isError = true;
+        }
+
+        if(TextUtils.isEmpty(description)){
+            layoutDescription.setError(getString(R.string.layout_description_error), true);
+            isError = true;
+        }
+
+        if(TextUtils.isEmpty(reward)){
+            layoutReward.setError(getString(R.string.layout_reward_error), true);
+            isError = true;
+        }
+
+        if(TextUtils.isEmpty(address)){
+            layoutAddress.setError(getString(R.string.dialog_empty_address), true);
+            isError = true;
+        }
+
+        if(listImage == null || listImage.size() == 0){
+            DialogConfig dialogConfig = new DialogConfig(CreateFeedActivity.this, SweetAlertDialog.ERROR_TYPE);
+            dialogConfig.showDialog(getString(R.string.empty_image_error));
+            isError = true;
+        }
+
+        return isError;
+    }
+
     public void handleCreateFeed() {
         final String userId = mAuth.getCurrentUser().getUid();
         final String title = edtTitle.getText().toString();
         final String description = edtDescription.getText().toString();
         final String reward = edtReward.getText().toString();
+        final String address = edtAddress.getText().toString();
+
+        if(checkErrorForm()) return;
+
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText(getString(R.string.dialog_progress_create_feed));
+        pDialog.setCancelable(false);
+        pDialog.show();
+
         Date date = new Date();
         final long createAt = date.getTime();
         Feed.EnumType type = Feed.EnumType.People;
@@ -171,7 +222,6 @@ public class CreateFeedActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()) {
                         Uri downloadUri = task.getResult();
-                        System.out.println("get url success" + finalI);
                         listDownloadUri.add(downloadUri.toString());
                     } else {
                         // Handle failures
@@ -187,59 +237,15 @@ public class CreateFeedActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
                     @Override
                     public void onComplete(@NonNull Task<List<Task<?>>> task) {
-                        Feed feed = new Feed(key, title, reward, description, finalType, status, createAt, userId, "", listDownloadUri);
-                        System.out.println("create: "+feed.toString());
+                        Feed feed = new Feed(key, title, reward, address, description, finalType.toString(), status.toString(), createAt, userId, "", listDownloadUri);
                         mDatabase.child("feeds").child(key).setValue(feed);
+                        pDialog.dismiss();
                         Intent intent = new Intent(CreateFeedActivity.this, HomeActivity.class);
                         startActivity(intent);
                     }
                 });
 //        mDatabase.child("feeds").child(key).child("image").setValue(listDownloadUri);
 
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void handleShowError(){
-
-        String title = edtTitle.getText().toString();
-        String description = edtDescription.getText().toString();
-        String reward = edtReward.getText().toString();
-        if(title.equals("")){
-            edtTitle.setError(getString(R.string.layout_title_error));
-        }
-
-        if(reward.equals("")){
-            edtReward.setError(getString(R.string.layout_reward_error));
-        }
-
-        if(description.equals("")){
-            edtDescription.setError(getString(R.string.layout_description_error));
-        }
-    }
-
-    public boolean checkConditionCreateFeed(){
-        boolean agreeCreate = true;
-        String title = edtTitle.getText().toString();
-        String description = edtDescription.getText().toString();
-        String reward = edtReward.getText().toString();
-
-        if(title.equals("")){
-            agreeCreate = false;
-        }
-
-        if(reward.equals("")){
-            agreeCreate = false;
-        }
-
-        if(description.equals("")){
-            agreeCreate = false;
-        }
-
-        if(listImage == null || listImage.size() == 0){
-            agreeCreate = false;
-        }
-
-        return agreeCreate;
     }
 
     public void selectImageFromCard() {

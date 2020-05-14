@@ -4,23 +4,33 @@ import java.util.ArrayList;
 
 public class Feed {
     public enum EnumType {People, Work}
-    public enum EnumStatus { New, Progress, Done }
+    public enum EnumStatus {
+        New, Close, Progress, Done;
+    }
+
+    public static final String FEED_STRING = "feed";
 
     private String feedId;
     private String title;
     private String reward;
+    private String address;
     private String description;
-    private EnumType type;
-    private EnumStatus status;
+    private String type;
+    private String status;
     private long createAt;
     private String createBy;
     private String workBy;
     private ArrayList<String> image;
 
-    public Feed(String feedId, String title, String reward, String description, EnumType type, EnumStatus status, long createAt, String createBy, String workBy, ArrayList<String> image) {
+    public Feed() {
+
+    }
+
+    public Feed(String feedId, String title, String reward, String address, String description, String type, String status, long createAt, String createBy, String workBy, ArrayList<String> image) {
         this.feedId = feedId;
         this.title = title;
         this.reward = reward;
+        this.address = address;
         this.description = description;
         this.type = type;
         this.status = status;
@@ -30,7 +40,7 @@ public class Feed {
         this.image = image;
     }
 
-    public Feed(String feedId, String title, String reward, String description, EnumType type, long createAt, String createBy, ArrayList<String> image) {
+    public Feed(String feedId, String title, String reward, String description, String type, long createAt, String createBy, ArrayList<String> image) {
         this.feedId = feedId;
         this.title = title;
         this.reward = reward;
@@ -41,7 +51,7 @@ public class Feed {
         this.image = image;
     }
 
-    public Feed(String title, String reward, String description, EnumType type, long createAt, String createBy, ArrayList<String> image) {
+    public Feed(String title, String reward, String description, String type, long createAt, String createBy, ArrayList<String> image) {
         this.title = title;
         this.reward = reward;
         this.description = description;
@@ -51,11 +61,19 @@ public class Feed {
         this.image = image;
     }
 
-    public EnumStatus getStatus() {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(EnumStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -99,11 +117,11 @@ public class Feed {
         this.description = description;
     }
 
-    public EnumType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(EnumType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
